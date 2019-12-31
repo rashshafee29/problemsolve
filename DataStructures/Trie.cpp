@@ -102,10 +102,10 @@ int main()
     char* dis = new char[26];
     displayTrie(root, 0, dis);
 
-    cout<<searchTrie("shafee", stringLength("shafee"));
+    // cout<<searchTrie("shafee", stringLength("shafee"));
 
-    cout<<searchTrie("shaf", stringLength("shaf"));
+    // cout<<searchTrie("shaf", stringLength("shaf"));
 
-    cout<<searchTrie("shafey", stringLength("shafey"));
+    // cout<<searchTrie("shafey", stringLength("shafey"));
     return 0;
 }
