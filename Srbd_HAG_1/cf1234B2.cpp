@@ -2,22 +2,23 @@
 #include<iostream>
 #include<malloc.h>
 using namespace std;
-#define MAX 10
+int MAX,k;
+int *queue_;
+int front_=-1;
+int rear=-1;
 struct node {
     int data;
     struct node *next;
 };
 
-struct node *hashTable[MAX];
-
-void init()
+void init(node *hashTable[])
 {
     int i;
     for(i = 0; i < MAX; i++)
         hashTable[i] = NULL;
 }
 
-void insertHash(int val) {
+void insertHash(node *hashTable[], int val) {
 
     node *newNode = (struct node *)malloc(sizeof(struct node));;
     newNode->data = val;
@@ -36,7 +37,7 @@ void insertHash(int val) {
     }
 }
 
-bool searchHash(int val) {
+bool searchHash(node *hashTable[], int val) {
     int key = val % MAX;
     struct node *temp = hashTable[key];
     while (temp)
@@ -49,7 +50,7 @@ bool searchHash(int val) {
     return false;
 }
 
-void deleteHash(int val) {
+void deleteHash(node *hashTable[], int val) {
     int key = val % MAX;
     struct node *temp = hashTable[key], *delLoc;
     if(temp != NULL) {
@@ -69,44 +70,51 @@ void deleteHash(int val) {
                 }
                 temp = temp->next;
             }
-            
+
         }
     }
-       
+
 }
 
-void printHashTable() {
-    for(int i=0;i<MAX;i++){
-        struct node *temp = hashTable[i];
-        while (temp)
-        {
-            cout<<temp->data<<"->";
-            temp = temp->next;
-        }
-        cout<<"NULL\n";
+void qPush(node *hashTable[], int val)
+{
+    //cout<<val<<endl;
+    if(front_==-1)
+    {
+        front_=0;
     }
+    rear=rear+1;
+    if(rear-front_== k){
+        deleteHash(hashTable,queue_[front_]);
+        front_ = front_+1;
+    }
+    queue_[rear]=val;
+}
+void qDisplay()
+{
+    cout<<rear-front_+1<<endl;
+    for(int i=rear; i>=front_; i--)
+    {
+        printf("%d ", queue_[i]);
+    }
+    printf("\n");
 }
 
 int main()
 {
-    init();
-    int n;
-    cin>>n;
-    while (n--)
-    {
-        int a;
-        cin>>a;
-        insertHash(a);
+    cin>>MAX>>k;
+    node *hashTable[MAX];
+    init(hashTable);
+    queue_ = new int[MAX+5];
+    for(int i=0;i<MAX;i++) {
+        int aa;
+        cin>>aa;
+        if(!searchHash(hashTable,aa)) {
+            qPush(hashTable,aa);
+            insertHash(hashTable,aa);
+        }
     }
 
-    printHashTable();
-
-    cout<<searchHash(5);
-    // cout<<search(15);
-    // cout<<search(25);
-    // cout<<search(6);
-
-    deleteHash(15);
-    printHashTable();
+    qDisplay();
     return 0;
 }
