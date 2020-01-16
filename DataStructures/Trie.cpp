@@ -65,7 +65,7 @@ void displayTrie(node* rootNode, int level, char* str)
         str[level] = '\0';
         puts(str);
         cout<<"\n";
-        return;
+        // return;
     }
 
     for(int i=0; i<26; i++)

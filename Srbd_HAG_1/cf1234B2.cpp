@@ -103,7 +103,7 @@ void qDisplay()
 int main()
 {
     cin>>MAX>>k;
-    node *hashTable[MAX];
+    node *hashTable[MAX+5];
     init(hashTable);
     queue_ = new int[MAX+5];
     for(int i=0;i<MAX;i++) {
